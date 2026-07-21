@@ -36,7 +36,7 @@ export const updateUser = async (req, res) => {
         if (walletBalance !== undefined) user.walletBalance = walletBalance;
         if (favorites !== undefined) user.favorites = favorites;
         await user.save();
-        const updatedUser = await User.findOne({ id }).select("-password");
+        const updatedUser = await User.findOne({ id }).select("-password -otp -otpExpiry");
         res.status(200).json({ success: true, message: "User updated successfully.", user: updatedUser });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
