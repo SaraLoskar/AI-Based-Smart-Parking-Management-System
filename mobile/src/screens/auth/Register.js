@@ -209,8 +209,8 @@ const styles = StyleSheet.create({
         color: "#fff",
         fontSize: 11,
         fontWeight: "700",
-        right: -3,
-        margin: -2,
+        right: -4,
+        margin: 0,
     },
 
     socialButton: {

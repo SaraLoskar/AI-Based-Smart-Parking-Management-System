@@ -46,20 +46,20 @@ const styles = StyleSheet.create({
     width: 145,
     height: 145,
     resizeMode: "contain",
-    marginBottom: -5,
+    marginBottom: 5,
   },
 
   title: {
     fontSize: 32,
     fontWeight: "800",
     color: "#111",
-    marginTop: -38,
+    marginTop: -40,
   },
 
   subtitle: {
     fontSize: 18,
     color: "#666",
-    marginTop: -3,
+    marginTop: 5,
   },
 
 });

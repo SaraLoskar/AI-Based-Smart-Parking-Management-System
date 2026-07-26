@@ -44,13 +44,13 @@ export default function GetStarted({ navigation }) {
                     System
                 </Text>
 
-                {/* <Text style={styles.tagline}>
+                <Text style={styles.tagline}>
                     Park Smart. Save Time.
                 </Text>
 
                 <Text style={styles.tagline}>
                     Save Fuel. Save Planet.
-                </Text> */}
+                </Text>
             </View>
 
             {/* Optional City Illustration */}
@@ -132,21 +132,21 @@ const styles = StyleSheet.create({
         lineHeight: 41,
     },
 
-    // tagline: {
-    //     fontSize: 18,
-    //     color: "#555",
-    //     marginTop: 10,
-    //     lineHeight: 28,
-    // },
+    tagline: {
+        fontSize: 18,
+        color: "#555",
+        marginTop: 10,
+        lineHeight: 28,
+    },
 
     /* -------- CITY -------- */
 
     city: {
         position: "absolute",
-        left: -80,
-        bottom: 75,
-        width: "130%",
-        height: 290,
+        left: -35,
+        bottom: 100,
+        width: "110%",
+        height: 400,
         resizeMode: "contain",
     },
 
@@ -154,9 +154,9 @@ const styles = StyleSheet.create({
 
     car: {
         position: "absolute",
-        bottom: 48,
-        width: "100%",
-        height: 250 ,
+        bottom: 35,
+        width: "120%",
+        height: 400 ,
         resizeMode: "contain",
         alignSelf: "center",
     },
@@ -166,9 +166,9 @@ const styles = StyleSheet.create({
     parkingSign: {
         position: "absolute",
         left: -475,
-        bottom: 70,
+        bottom: 120,
         // width: 45,
-        height: 120,
+        height: 350,
         resizeMode: "contain",
     },
 
@@ -176,13 +176,13 @@ const styles = StyleSheet.create({
 
     button: {
         width: "88%",
-        height: 58,
+        height: 55,
         backgroundColor: "#118A54",
         borderRadius: 18,
         justifyContent: "center",
         alignItems: "center",
         position: "absolute",
-        bottom: 5,
+        bottom: 30,
         elevation: 8,
     },
 
