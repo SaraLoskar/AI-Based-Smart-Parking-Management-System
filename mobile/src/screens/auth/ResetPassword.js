@@ -8,50 +8,68 @@ import {
   Alert,
 } from "react-native";
 
+import InputField from "../../components/inputs/InputFields";
+import { resetPassword } from "../../services/auth.service";
 import LogoHeader from "../../components/auth/LogoHeader";
 import PasswordField from "../../components/auth/PasswordField";
 import PrimaryButton from "../../components/button/PrimaryButton";
 
-export default function ResetPassword({ navigation }) {
+export default function ResetPassword({
+  navigation,
+  route,
+}) {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [otp, setOtp] = useState("");
 
-  const handleReset = () => {
+  const email = route.params.email;
 
-    if (!password) {
-      return Alert.alert(
-        "Error",
-        "Please enter your new password."
-      );
+  const handleResetPassword = async () => {
+
+    if (!otp.trim()) {
+      return Alert.alert("Error", "Enter OTP");
     }
 
-    if (password.length < 6) {
-      return Alert.alert(
-        "Error",
-        "Password must be at least 6 characters."
-      );
+    if (!password.trim()) {
+      return Alert.alert("Error", "Enter new password");
     }
 
     if (password !== confirmPassword) {
       return Alert.alert(
         "Error",
-        "Passwords do not match."
+        "Passwords do not match"
       );
     }
 
-    // Backend integration later
+    try {
 
-    Alert.alert(
-      "Success",
-      "Password changed successfully.",
-      [
-        {
-          text: "OK",
-          onPress: () => navigation.navigate("Login"),
-        },
-      ]
-    );
+      await resetPassword({
+        email,
+        otp,
+        newPassword: password,
+      });
+
+      Alert.alert(
+        "Success",
+        "Password updated successfully",
+        [
+          {
+            text: "OK",
+            onPress: () => navigation.replace("Login"),
+          },
+        ]
+      );
+
+    } catch (error) {
+
+      Alert.alert(
+        "Error",
+        error.response?.data?.message ||
+        "Something went wrong"
+      );
+
+    }
   };
 
   return (
@@ -64,6 +82,13 @@ export default function ResetPassword({ navigation }) {
       <LogoHeader
         title="Reset Password"
         subtitle="Create a strong password for your account."
+      />
+
+      <InputField
+        placeholder="Enter OTP"
+        value={otp}
+        onChangeText={setOtp}
+        keyboardType="number-pad"
       />
 
       <PasswordField
@@ -80,7 +105,7 @@ export default function ResetPassword({ navigation }) {
 
       <PrimaryButton
         title="Reset Password"
-        onPress={handleReset}
+        onPress={handleResetPassword}
       />
 
       <TouchableOpacity

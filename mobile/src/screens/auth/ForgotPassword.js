@@ -8,6 +8,7 @@ import {
   Alert,
 } from "react-native";
 
+import { forgotPassword } from "../../services/auth.service";
 import LogoHeader from "../../components/auth/LogoHeader";
 import InputField from "../../components/inputs/InputFields";
 import PrimaryButton from "../../components/button/PrimaryButton";
@@ -16,19 +17,32 @@ export default function ForgotPassword({ navigation }) {
 
   const [email, setEmail] = useState("");
 
-  const handleSendOTP = () => {
-
+  const handleSendOTP = async () => {
     if (!email.trim()) {
-      return Alert.alert(
+      return Alert.alert("Error", "Enter your email");
+    }
+    try {
+      const response = await forgotPassword(email);
+      Alert.alert(
+        "OTP Generated",
+        `Your OTP is ${response.otp}`,
+        [
+          {
+            text: "OK",
+            onPress: () =>
+              navigation.navigate("ResetPassword", {
+                email,
+              }),
+          },
+        ]
+      );
+    } catch (error) {
+      Alert.alert(
         "Error",
-        "Please enter your email."
+        error.response?.data?.message || "Something went wrong"
       );
     }
-
-    // Backend will be connected later
-    navigation.navigate("OTPVerification");
   };
-
   return (
     <ScrollView
       style={styles.container}

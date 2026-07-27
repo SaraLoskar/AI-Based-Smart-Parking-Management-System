@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
+import { useAuth } from "../../context/AuthContext";
 import LogoHeader from "../../components/auth/LogoHeader";
 import Divider from "../../components/auth/Divider";
 import InputField from "../../components/inputs/InputFields";
@@ -25,8 +26,9 @@ export default function Register({ navigation }) {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [agree, setAgree] = useState(false);
+    const { register, loading } = useAuth();
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
 
         if (!name.trim()) {
             return Alert.alert("Error", "Please enter your full name.");
@@ -55,10 +57,43 @@ export default function Register({ navigation }) {
             );
         }
 
-        Alert.alert(
-            "Success",
-            "Registration will be connected to backend next."
-        );
+        try {
+
+            const response = await register({
+                name,
+                email,
+                phone,
+                password,
+            });
+
+            if (response.success) {
+
+                Alert.alert(
+                    "Success",
+                    response.message,
+                    [
+                        {
+                            text: "OK",
+                            onPress: () => navigation.navigate("Login"),
+                        },
+                    ]
+                );
+
+            } else {
+
+                Alert.alert("Error", response.message);
+
+            }
+
+        } catch (error) {
+
+            Alert.alert(
+                "Error",
+                error?.response?.data?.message ||
+                "Something went wrong."
+            );
+
+        }
     };
 
     return (
@@ -126,11 +161,11 @@ export default function Register({ navigation }) {
             </TouchableOpacity>
 
             <PrimaryButton
-                title="Sign Up"
+                title={loading ? "Creating Account..." : "Sign Up"}
                 onPress={handleRegister}
             />
 
-            <Divider />
+            {/* <Divider />
 
             <View style={styles.socialRow}>
 
@@ -152,7 +187,7 @@ export default function Register({ navigation }) {
                     <Text style={styles.socialText}>Apple</Text>
                 </TouchableOpacity>
 
-            </View>
+            </View> */}
 
             <View style={styles.bottomRow}>
                 <Text style={styles.bottomText}>
@@ -213,38 +248,38 @@ const styles = StyleSheet.create({
         margin: 0,
     },
 
-    socialButton: {
-        flex: 1,
-        height: 50,
-        borderRadius: 15,
-        borderWidth: 1,
-        borderColor: "#DDD",
-        backgroundColor: "#FFF",
+    // socialButton: {
+    //     flex: 1,
+    //     height: 50,
+    //     borderRadius: 15,
+    //     borderWidth: 1,
+    //     borderColor: "#DDD",
+    //     backgroundColor: "#FFF",
 
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-    },
+    //     flexDirection: "row",
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    // },
 
-    socialRow: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        gap: 12,
-        marginTop: -5,
-    },
+    // socialRow: {
+    //     flexDirection: "row",
+    //     justifyContent: "space-between",
+    //     alignItems: "center",
+    //     gap: 12,
+    //     marginTop: -5,
+    // },
 
-    socialText: {
-        fontSize: 16,
-        fontWeight: "600",
-        color: "#222",
-        marginLeft: 8,
-    },
+    // socialText: {
+    //     fontSize: 16,
+    //     fontWeight: "600",
+    //     color: "#222",
+    //     marginLeft: 8,
+    // },
 
     bottomRow: {
         flexDirection: "row",
         justifyContent: "center",
-        marginTop: 15,
+        marginTop: 25,
     },
 
     bottomText: {

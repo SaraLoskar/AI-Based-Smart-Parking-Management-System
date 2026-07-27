@@ -5,9 +5,11 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
+import { useAuth } from "../../context/AuthContext";
 import LogoHeader from "../../components/auth/LogoHeader";
 import Divider from "../../components/auth/Divider";
 import InputField from "../../components/inputs/InputFields";
@@ -19,6 +21,52 @@ export default function Login({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
+  const { login, loading } = useAuth();
+
+  const handleLogin = async () => {
+
+    if (!email.trim()) {
+      return Alert.alert(
+        "Error",
+        "Please enter your email."
+      );
+    }
+
+    if (!password) {
+      return Alert.alert(
+        "Error",
+        "Please enter your password."
+      );
+    }
+
+    try {
+      const response = await login(email, password);
+      if (response.success) {
+        Alert.alert(
+          "Success",
+          response.message,
+          [
+            {
+              text: "OK",
+              onPress: () => navigation.navigate("MainTabs"),
+            },
+          ]
+        );
+
+      } else {
+        Alert.alert(
+          "Error",
+          response.message
+        );
+      }
+    } catch (error) {
+      Alert.alert(
+        "Login Failed",
+        error?.response?.data?.message ||
+        "Something went wrong."
+      );
+    }
+  };
 
   return (
     <ScrollView
@@ -78,11 +126,11 @@ export default function Login({ navigation }) {
       </View>
 
       <PrimaryButton
-        title="Log In"
-        onPress={() => { }}
+        title={loading ? "Logging In..." : "Log In"}
+        onPress={handleLogin}
       />
 
-      <Divider />
+      {/* <Divider />
 
       <View style={styles.socialRow}>
 
@@ -104,7 +152,7 @@ export default function Login({ navigation }) {
           <Text style={styles.socialText}>Apple</Text>
         </TouchableOpacity>
 
-      </View>
+      </View> */}
       <View style={styles.bottomRow}>
         <Text style={styles.bottomText}>
           Don't have an account?
@@ -179,38 +227,38 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
 
-  socialButton: {
-    flex: 1,
-    height: 50,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: "#DDD",
-    backgroundColor: "#FFF",
+  // socialButton: {
+  //   flex: 1,
+  //   height: 50,
+  //   borderRadius: 15,
+  //   borderWidth: 1,
+  //   borderColor: "#DDD",
+  //   backgroundColor: "#FFF",
 
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  // },
 
-  socialRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    gap: 12,
-    marginTop: 5,
-  },
+  // socialRow: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   alignItems: "center",
+  //   gap: 12,
+  //   marginTop: 5,
+  // },
 
-  socialText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#222",
-    marginLeft: 8,
-  },
+  // socialText: {
+  //   fontSize: 16,
+  //   fontWeight: "600",
+  //   color: "#222",
+  //   marginLeft: 8,
+  // },
 
   bottomRow: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 15,
+    marginTop: 25,
   },
 
   bottomText: {

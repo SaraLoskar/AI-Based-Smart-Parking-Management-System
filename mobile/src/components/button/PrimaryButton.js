@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
       height: 4,
     },
     shadowRadius: 6,
+    marginTop: 10,
   },
 
   disabled: {
