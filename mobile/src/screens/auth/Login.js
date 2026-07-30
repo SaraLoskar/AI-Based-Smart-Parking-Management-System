@@ -48,7 +48,7 @@ export default function Login({ navigation }) {
           [
             {
               text: "OK",
-              onPress: () => navigation.navigate("MainTabs"),
+              onPress: () => navigation.replace("MainTabs"),
             },
           ]
         );

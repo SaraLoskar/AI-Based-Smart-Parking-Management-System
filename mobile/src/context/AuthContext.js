@@ -1,25 +1,14 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-} from "react";
-
-import {
-  loginUser,
-  registerUser,
-  logoutUser,
-} from "../services/auth.service";
+import React, { createContext, useContext, useState } from "react";
+import { loginUser } from "../services/auth.service";
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+
   const login = async (email, password) => {
-
     try {
-
       setLoading(true);
 
       const response = await loginUser({
@@ -29,31 +18,18 @@ export const AuthProvider = ({ children }) => {
 
       if (response.success) {
         setUser(response.user);
-        return response;
       }
-      return response;
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const register = async (data) => {
-    try {
-      setLoading(true);
-      const response = await registerUser(data);
       return response;
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const logout = async () => {
-    try {
-      await logoutUser();
-      setUser(null);
     } catch (error) {
-      console.log(error);
+      throw error;
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const logout = () => {
+    setUser(null);
   };
 
   return (
@@ -62,7 +38,6 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         login,
-        register,
         logout,
       }}
     >
