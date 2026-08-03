@@ -4,41 +4,79 @@ import {
   Text,
   StyleSheet,
   Image,
+  TouchableOpacity,
 } from "react-native";
 
-export default function GreetingHeader({
-  userName,
-  profileImage,
-}) {
+import { Ionicons } from "@expo/vector-icons";
+import { useAuth } from "../../context/AuthContext";
 
-  const hour = new Date().getHours();
+export default function GreetingHeader() {
 
-  let greeting = "Good Evening";
+  const { user } = useAuth();
 
-  if (hour < 12) greeting = "Good Morning";
-  else if (hour < 17) greeting = "Good Afternoon";
+  const getGreeting = () => {
+
+    const hour = new Date().getHours();
+
+    if (hour < 12) return "Good Morning";
+
+    if (hour < 17) return "Good Afternoon";
+
+    if (hour < 21) return "Good Evening";
+
+    return "Good Night";
+  };
+
+  const firstName =
+    user?.name?.trim()?.split(" ")[0] || "Guest";
 
   return (
     <View style={styles.container}>
 
       <View>
+
         <Text style={styles.greeting}>
-          {greeting},
+          {getGreeting()} 👋
         </Text>
 
         <Text style={styles.name}>
-          {userName || "Guest"}
+          {firstName}
         </Text>
+
       </View>
 
-      <Image
-        source={
-          profileImage
-            ? { uri: profileImage }
-            : require("../../../assets/images/logo.png")
-        }
-        style={styles.avatar}
-      />
+      <View style={styles.rightSection}>
+
+        <TouchableOpacity style={styles.bellButton}>
+          <Ionicons
+            name="notifications-outline"
+            size={24}
+            color="#222"
+          />
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+
+          {user?.profileImage ? (
+
+            <Image
+              source={{ uri: user.profileImage }}
+              style={styles.avatar}
+            />
+
+          ) : (
+
+            <View style={styles.avatarPlaceholder}>
+              <Text style={styles.initial}>
+                {firstName.charAt(0).toUpperCase()}
+              </Text>
+            </View>
+
+          )}
+
+        </TouchableOpacity>
+
+      </View>
 
     </View>
   );
@@ -46,28 +84,56 @@ export default function GreetingHeader({
 
 const styles = StyleSheet.create({
 
-  container:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center",
-    marginVertical:20,
+  container: {
+    marginTop: 15,
+    marginBottom: 20,
+
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 
-  greeting:{
-    fontSize:17,
-    color:"#777",
+  greeting: {
+    fontSize: 17,
+    color: "#666",
   },
 
-  name:{
-    fontSize:28,
-    fontWeight:"700",
-    color:"#111",
+  name: {
+    fontSize: 33,
+    fontWeight: "700",
+    color: "#222",
+    marginTop: 5,
   },
 
-  avatar:{
-    width:55,
-    height:55,
-    borderRadius:28,
-  }
+  rightSection: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  bellButton: {
+    marginRight: 15,
+  },
+
+  avatar: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+  },
+
+  avatarPlaceholder: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#118A54",
+
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  initial: {
+    color: "#fff",
+    fontSize: 22,
+    fontWeight: "700",
+  },
 
 });

@@ -1,60 +1,82 @@
 import React from "react";
 import {
-View,
-TextInput,
-StyleSheet,
+  View,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 
-import { Ionicons } from "@expo/vector-icons";
+import {
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 
 export default function SearchBar({
+  value,
+  onChangeText,
+  onFilterPress,
+}) {
+  return (
+    <View style={styles.container}>
 
-value,
-onChangeText,
+      <Ionicons
+        name="search"
+        size={22}
+        color="#888"
+      />
 
-}){
+      <TextInput
+        style={styles.input}
+        placeholder="Search parking..."
+        placeholderTextColor="#999"
+        value={value}
+        onChangeText={onChangeText}
+      />
 
-return(
+      <TouchableOpacity
+        onPress={onFilterPress}
+      >
+        <MaterialIcons
+          name="tune"
+          size={24}
+          color="#118A54"
+        />
+      </TouchableOpacity>
 
-<View style={styles.container}>
-
-<Ionicons
-name="search"
-size={22}
-color="#888"
-/>
-
-<TextInput
-
-placeholder="Search Parking..."
-value={value}
-onChangeText={onChangeText}
-style={styles.input}
-
-/>
-
-</View>
-
-);
-
+    </View>
+  );
 }
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
 
-container:{
-flexDirection:"row",
-alignItems:"center",
-backgroundColor:"#FFF",
-paddingHorizontal:15,
-height:55,
-borderRadius:15,
-marginBottom:20,
-},
+  container: {
+    height: 56,
+    backgroundColor: "#fff",
 
-input:{
-marginLeft:10,
-flex:1,
-fontSize:16,
-}
+    borderRadius: 18,
+
+    flexDirection: "row",
+    alignItems: "center",
+
+    paddingHorizontal: 18,
+
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+
+    elevation: 4,
+  },
+
+  input: {
+    flex: 1,
+    marginHorizontal: 12,
+    fontSize: 16,
+    color: "#222",
+  },
 
 });

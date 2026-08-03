@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 
 // Screens
 import HomeScreen from "../screens/home/HomeScreen";
+import ReservationScreen from "../screens/reservations/ReservationScreen";
 
 // Temporary Dummy Screens
 import { View, Text } from "react-native";
@@ -21,7 +22,6 @@ const Dummy = ({ title }) => (
   </View>
 );
 
-const ReservationScreen = () => <Dummy title="Reservations" />;
 const ParkingScreen = () => <Dummy title="Parking" />;
 const HistoryScreen = () => <Dummy title="History" />;
 const ProfileScreen = () => <Dummy title="Profile" />;

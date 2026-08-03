@@ -36,6 +36,7 @@ backgroundColor:"#118A54",
 borderRadius:15,
 justifyContent:"center",
 alignItems:"center",
+marginTop:10,
 marginBottom:30,
 },
 
