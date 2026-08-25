@@ -14,7 +14,6 @@ import ParkingCard from "../../components/cards/ParkingCard";
 import StatsCard from "../../components/cards/StatsCard";
 import ViewMapButton from "../../components/home/ViewMapButton";
 import NearbyParkingHeader from "../../components/home/NearbyParkingHeader";
-import ReservationScreen from "../../screens/reservations/ReservationScreen";
 
 import { getParkingAreas } from "../../services/parking.service";
 
@@ -22,6 +21,9 @@ export default function HomeScreen({ navigation }) {
 
     const [parkingAreas, setParkingAreas] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [search, setSearch] = useState("");
+
+    const { user } = useAuth();
 
     const totalParking = parkingAreas.reduce(
         (sum, item) => sum + item.totalSlots,
@@ -33,10 +35,6 @@ export default function HomeScreen({ navigation }) {
         0
     );
 
-    const [search, setSearch] = useState("");
-    const { user } = useAuth();
-    console.log(user);
-
     useEffect(() => {
         loadParking();
     }, []);
@@ -46,9 +44,6 @@ export default function HomeScreen({ navigation }) {
             const data = await getParkingAreas();
 
             console.log("Parking Data:", data);
-
-            console.log("Parking Areas Received:");
-            console.log(data);
 
             setParkingAreas(data);
 
@@ -60,7 +55,12 @@ export default function HomeScreen({ navigation }) {
     };
 
     if (loading) {
-        return <ActivityIndicator size="large" color="#118A54" />;
+        return (
+            <ActivityIndicator
+                size="large"
+                color="#118A54"
+            />
+        );
     }
 
     const filteredParking = parkingAreas.filter((item) => {
@@ -76,7 +76,10 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
+
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
 
                 <GreetingHeader />
 
@@ -91,21 +94,30 @@ export default function HomeScreen({ navigation }) {
                 <NearbyParkingHeader
                     title="Nearby Parking"
                     buttonText="See All"
-                    onPress={() => console.log("See All Parking")}
+                    onPress={() =>
+                        navigation.navigate("Parking")
+                    }
                 />
 
                 {filteredParking.length > 0 ? (
 
                     filteredParking.map((item) => (
+
                         <ParkingCard
                             key={item.id}
                             parking={item}
                             onPress={(parking) => {
-                                navigation.navigate("ParkingDetails", {
-                                    parking,
-                                });
+
+                                navigation.navigate(
+                                    "ParkingDetails",
+                                    {
+                                        parking,
+                                    }
+                                );
+
                             }}
                         />
+
                     ))
 
                 ) : (
@@ -129,17 +141,21 @@ export default function HomeScreen({ navigation }) {
                 />
 
                 <ViewMapButton
-                    onPress={() => console.log("Map coming soon")}
+                    onPress={() => navigation.navigate("ParkingDetails")}
                 />
+
             </ScrollView>
+
         </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+
     container: {
         flex: 1,
         backgroundColor: "#FAFBF8",
         paddingHorizontal: 20,
     },
+
 });

@@ -14,6 +14,9 @@ import ParkingDetails from "../screens/parking/ParkingDetails";
 import ParkingAvailability from "../screens/parking/ParkingAvailability";
 import SlotReservation from "../screens/parking/SlotReservation";
 import PaymentScreen from "../screens/payment/PaymentScreen";
+import ReservationScreen from "../screens/reservations/ReservationScreen";
+// import MapScreen from "../screens/map/MapScreen";
+// import ParkingMap from "../screens/parking/ParkingMap";
 
 import { useAuth } from "../context/AuthContext";
 
@@ -44,6 +47,9 @@ export default function AuthStack() {
           <Stack.Screen name="ParkingAvailability" component={ParkingAvailability} />
           <Stack.Screen name="SlotReservation" component={SlotReservation} />
           <Stack.Screen name="Payment" component={PaymentScreen} />
+          <Stack.Screen name="Reservations" component={ReservationScreen} />
+          {/* <Stack.Screen name="Map" component={MapScreen} />
+          <Stack.Screen name="ParkingMap" component={ParkingMap} /> */}
         </>
       )}
 

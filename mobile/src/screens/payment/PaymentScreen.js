@@ -1,170 +1,174 @@
 import React, { useState } from "react";
 import {
-View,
-Text,
-StyleSheet,
-TouchableOpacity,
-Alert,
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Alert,
 } from "react-native";
 
 export default function PaymentScreen({
-route,
-navigation,
-}){
+    route,
+    navigation,
+}) {
 
-const { parking, slot, total } = route.params;
+    const {
+        parking = { name: "City Mall Parking" },
+        slot = "Not selected",
+        total = 40,
+    } = route.params || {};
 
-const [method,setMethod]=useState("UPI");
+    const [method, setMethod] = useState("UPI");
 
-const methods=[
-"UPI",
-"Card",
-"Cash"
-];
+    const methods = [
+        "UPI",
+        "Card",
+        "Cash"
+    ];
 
-const bookParking=()=>{
+    const bookParking = () => {
 
-Alert.alert(
-"Booking Successful",
-`Slot ${slot} Reserved`,
-[
-{
-text:"OK",
-onPress:()=>navigation.navigate("Reservations"),
-},
-]
-);
+        Alert.alert(
+            "Booking Successful",
+            `Slot ${slot} Reserved`,
+            [
+                {
+                    text: "OK",
+                    onPress: () => navigation.navigate("Reservations"),
+                },
+            ]
+        );
 
-};
+    };
 
-return(
+    return (
 
-<View style={styles.container}>
+        <View style={styles.container}>
 
-<Text style={styles.title}>
-Payment
-</Text>
+            <Text style={styles.title}>
+                Payment
+            </Text>
 
-<Text style={styles.heading}>
-{parking.name}
-</Text>
+            <Text style={styles.heading}>
+                {parking.name}
+            </Text>
 
-<Text style={styles.info}>
-Slot : {slot}
-</Text>
+            <Text style={styles.info}>
+                Slot : {slot}
+            </Text>
 
-<Text style={styles.info}>
-Amount : ₹{total}
-</Text>
+            <Text style={styles.info}>
+                Amount : ₹{total}
+            </Text>
 
-<Text style={styles.select}>
-Select Payment Method
-</Text>
+            <Text style={styles.select}>
+                Select Payment Method
+            </Text>
 
-{
-methods.map(item=>(
+            {
+                methods.map(item => (
 
-<TouchableOpacity
+                    <TouchableOpacity
 
-key={item}
+                        key={item}
 
-style={[
-styles.method,
-method===item&&styles.active,
-]}
+                        style={[
+                            styles.method,
+                            method === item && styles.active,
+                        ]}
 
-onPress={()=>setMethod(item)}
->
+                        onPress={() => setMethod(item)}
+                    >
 
-<Text
-style={{
-color:
-method===item
-?"white"
-:"#118A54",
-fontWeight:"700",
-}}
->
-{item}
-</Text>
+                        <Text
+                            style={{
+                                color:
+                                    method === item
+                                        ? "white"
+                                        : "#118A54",
+                                fontWeight: "700",
+                            }}
+                        >
+                            {item}
+                        </Text>
 
-</TouchableOpacity>
+                    </TouchableOpacity>
 
-))
+                ))
+            }
+
+            <TouchableOpacity
+                style={styles.pay}
+                onPress={bookParking}
+            >
+
+                <Text style={styles.payText}>
+                    Pay ₹{total}
+                </Text>
+
+            </TouchableOpacity>
+
+        </View>
+
+    );
+
 }
 
-<TouchableOpacity
-style={styles.pay}
-onPress={bookParking}
->
+const styles = StyleSheet.create({
 
-<Text style={styles.payText}>
-Pay ₹{total}
-</Text>
+    container: {
+        flex: 1,
+        padding: 25,
+        backgroundColor: "#FAFBF8",
+    },
 
-</TouchableOpacity>
+    title: {
+        fontSize: 30,
+        fontWeight: "700",
+    },
 
-</View>
+    heading: {
+        marginTop: 25,
+        fontSize: 22,
+        fontWeight: "600",
+    },
 
-);
+    info: {
+        marginTop: 10,
+        fontSize: 18,
+    },
 
-}
+    select: {
+        marginTop: 40,
+        fontSize: 20,
+        fontWeight: "700",
+    },
 
-const styles=StyleSheet.create({
+    method: {
+        marginTop: 15,
+        padding: 18,
+        borderRadius: 15,
+        backgroundColor: "#DDF6EA",
+        alignItems: "center",
+    },
 
-container:{
-flex:1,
-padding:25,
-backgroundColor:"#FAFBF8",
-},
+    active: {
+        backgroundColor: "#118A54",
+    },
 
-title:{
-fontSize:30,
-fontWeight:"700",
-},
+    pay: {
+        marginTop: 45,
+        height: 55,
+        backgroundColor: "#118A54",
+        borderRadius: 15,
+        justifyContent: "center",
+        alignItems: "center",
+    },
 
-heading:{
-marginTop:25,
-fontSize:22,
-fontWeight:"600",
-},
-
-info:{
-marginTop:10,
-fontSize:18,
-},
-
-select:{
-marginTop:40,
-fontSize:20,
-fontWeight:"700",
-},
-
-method:{
-marginTop:15,
-padding:18,
-borderRadius:15,
-backgroundColor:"#DDF6EA",
-alignItems:"center",
-},
-
-active:{
-backgroundColor:"#118A54",
-},
-
-pay:{
-marginTop:45,
-height:55,
-backgroundColor:"#118A54",
-borderRadius:15,
-justifyContent:"center",
-alignItems:"center",
-},
-
-payText:{
-color:"#fff",
-fontSize:18,
-fontWeight:"700",
-},
+    payText: {
+        color: "#fff",
+        fontSize: 18,
+        fontWeight: "700",
+    },
 
 });
