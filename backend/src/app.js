@@ -12,6 +12,7 @@ import { fileURLToPath } from "url";
 import reportRoutes from "./routes/report.routes.js"
 import paymentRoutes from "./routes/payment.routes.js"
 import navigationRoutes from "./routes/navigation.routes.js"
+import yoloRoutes from "./routes/yolo.routes.js"
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,6 +34,7 @@ app.use("/api/notification", notificationRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/payment",paymentRoutes);
 app.use("/api/navigation", navigationRoutes);
+app.use("/api/yolo", yoloRoutes);
 
 // Serve Frontend Static Web Build
 app.use(express.static(frontendDistPath));
