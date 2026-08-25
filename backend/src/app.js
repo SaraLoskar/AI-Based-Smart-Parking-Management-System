@@ -7,14 +7,31 @@ import parkingAreaRoutes from "./routes/parkingArea.routes.js"
 import parkingSlotRoutes from "./routes/parkingSlot.routes.js"
 import bookingRoutes from "./routes/booking.routes.js"
 import notificationRoutes from "./routes/notification.routes.js"
+<<<<<<< HEAD
 import reportRoutes from "./routes/report.routes.js"
 import paymentRoutes from "./routes/payment.routes.js"
+=======
+import path from "path";
+import { fileURLToPath } from "url";
+import reportRoutes from "./routes/report.routes.js"
+import paymentRoutes from "./routes/payment.routes.js"
+import navigationRoutes from "./routes/navigation.routes.js"
+import yoloRoutes from "./routes/yolo.routes.js"
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const frontendDistPath = path.resolve(__dirname, "../../mobile/dist");
+>>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+<<<<<<< HEAD
+=======
+// API Routes
+>>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 app.use('/api/user', userRoutes);
 app.use('/api/auth',authRoutes);
 app.use('/api/vehicle', vehicleRoutes);
@@ -24,5 +41,21 @@ app.use("/api/booking", bookingRoutes);
 app.use("/api/notification", notificationRoutes);
 app.use("/api/report", reportRoutes);
 app.use("/api/payment",paymentRoutes);
+<<<<<<< HEAD
+=======
+app.use("/api/navigation", navigationRoutes);
+app.use("/api/yolo", yoloRoutes);
+
+// Serve Frontend Static Web Build
+app.use(express.static(frontendDistPath));
+
+// Fallback for Single Page Application (Web frontend)
+app.use((req, res, next) => {
+  if (req.method === "GET" && !req.path.startsWith("/api")) {
+    return res.sendFile(path.join(frontendDistPath, "index.html"));
+  }
+  next();
+});
+>>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 
 export default app;

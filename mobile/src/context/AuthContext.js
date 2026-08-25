@@ -1,7 +1,6 @@
-import React, { createContext, useContext, useState } from "react";
-import { loginUser } from "../services/auth.service";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { loginUser, registerUser } from "../services/auth.service";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useEffect } from "react";
 
 const AuthContext = createContext();
 
@@ -22,6 +21,18 @@ export const AuthProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      setLoading(true);
+      const response = await registerUser(userData);
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -52,11 +63,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-
     await AsyncStorage.removeItem("user");
-
     setUser(null);
-
   };
 
   return (
@@ -64,6 +72,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         user,
         loading,
+        register,
         login,
         logout,
       }}
