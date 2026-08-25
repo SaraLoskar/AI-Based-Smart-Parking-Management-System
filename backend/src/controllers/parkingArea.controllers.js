@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // Create Parking Area
 export const createParkingArea = async (req, res) => {
+  console.log("Parking API Hit");
   try {
     const {
       name,

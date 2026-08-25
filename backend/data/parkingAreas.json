@@ -1,0 +1,67 @@
+[
+  {
+    "id":"parking001",
+    "name":"BKC Multi-Level Parking",
+    "address":"Bandra Kurla Complex, Mumbai",
+    "latitude":19.0661,
+    "longitude":72.8698,
+    "totalSlots":500,
+    "availableSlots":243,
+    "pricePerHour":100,
+    "openingTime":"06:00",
+    "closingTime":"23:59",
+    "isActive":true
+  },
+  {
+    "id":"parking002",
+    "name":"Phoenix Marketcity Parking",
+    "address":"Kurla West, Mumbai",
+    "latitude":19.0866,
+    "longitude":72.8892,
+    "totalSlots":350,
+    "availableSlots":160,
+    "pricePerHour":80,
+    "openingTime":"08:00",
+    "closingTime":"23:30",
+    "isActive":true
+  },
+  {
+    "id":"parking003",
+    "name":"Linking Road Parking",
+    "address":"Bandra West, Mumbai",
+    "latitude":19.0609,
+    "longitude":72.8347,
+    "totalSlots":120,
+    "availableSlots":38,
+    "pricePerHour":60,
+    "openingTime":"08:00",
+    "closingTime":"22:00",
+    "isActive":true
+  },
+  {
+    "id":"parking004",
+    "name":"Carter Road Parking",
+    "address":"Bandra West, Mumbai",
+    "latitude":19.0675,
+    "longitude":72.8225,
+    "totalSlots":90,
+    "availableSlots":27,
+    "pricePerHour":50,
+    "openingTime":"06:00",
+    "closingTime":"23:00",
+    "isActive":true
+  },
+  {
+    "id":"parking005",
+    "name":"Juhu Beach Parking",
+    "address":"Juhu, Mumbai",
+    "latitude":19.1002,
+    "longitude":72.8267,
+    "totalSlots":180,
+    "availableSlots":61,
+    "pricePerHour":70,
+    "openingTime":"06:00",
+    "closingTime":"23:00",
+    "isActive":true
+  }
+]
