@@ -7,21 +7,19 @@ export const register = async (req, res) => {
   try {
     const { name, email, password, phone, profileImage, bio, location } = req.body;
 
-<<<<<<< HEAD
-    if (!name || !email || !password || !phone ) {
-      return res.status(400).json({
-        success: false,
-        message: "Name, email and password are required",
-      });
-    }
+    // if (!name || !email || !password || !phone ) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Name, email and password are required",
+    //   });
+    // }
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "User already exists",
-      });
-=======
+    // const existingUser = await User.findOne({ email });
+    // if (existingUser) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "User already exists",
+    //   });
     if (!name || !email || !password || !phone) {
       return res.status(400).json({
         success: false,
@@ -46,49 +44,40 @@ export const register = async (req, res) => {
           message: "An account with this phone number already exists.",
         });
       }
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
       id: uuidv4(),
-<<<<<<< HEAD
-      name,
-      email,
-      password: hashedPassword,
-      phone: phone || "",
-=======
+      // name,
+      // email,
+      // password: hashedPassword,
+      // phone: phone || "",
       name: name.trim(),
       email: email.toLowerCase().trim(),
       password: hashedPassword,
       phone: phone.trim(),
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
       profileImage: profileImage || "",
       bio: bio || "",
       location: location || "",
     });
 
-<<<<<<< HEAD
-    const safeUser = await User.findById(user._id).select("-password");
+    // const safeUser = await User.findById(user._id).select("-password");
 
-    res.status(201).json({
-      success: true,
-      message: "Account created",
-=======
+    // res.status(201).json({
+    //   success: true,
+    //   message: "Account created",
     const safeUser = await User.findById(user._id).select("-password -otp -otpExpiry");
 
     return res.status(201).json({
       success: true,
       message: "Account created successfully.",
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
       user: safeUser,
     });
 
   } catch (error) {
-<<<<<<< HEAD
-    res.status(500).json({
-=======
+    // res.status(500).json({
     if (error.code === 11000) {
       const field = Object.keys(error.keyPattern || {})[0] || "field";
       return res.status(400).json({
@@ -98,7 +87,6 @@ export const register = async (req, res) => {
     }
 
     return res.status(500).json({
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
       success: false,
       message: error.message,
     });

@@ -18,6 +18,7 @@ export const createParkingArea = async (req, res) => {
       isActive,
     } = req.body;
 
+    console.log("Received Parking Area Data:", req.body);
     if (
       !name ||
       !address ||
@@ -53,6 +54,7 @@ export const createParkingArea = async (req, res) => {
       data: parkingArea,
     });
   } catch (error) {
+    console.error("Create Parking Area Error:", error.message);
     return res.status(500).json({
       success: false,
       message: error.message,

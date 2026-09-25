@@ -80,9 +80,17 @@ export const syncSlotOccupancy = async (req, res) => {
       isActive: true,
     });
 
-    parkingArea.totalSlots = totalSlots;
-    parkingArea.availableSlots = availableSlots;
-    await parkingArea.save();
+    // Do not overwrite a valid ParkingArea total with 0
+    if (totalSlots > 0) {
+      parkingArea.totalSlots = totalSlots;
+      parkingArea.availableSlots = availableSlots;
+      await parkingArea.save();
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "No active parking slots found for this parking area. Please create ParkingSlot records first.",
+      });
+    }
 
     return res.status(200).json({
       success: true,
@@ -204,9 +212,21 @@ export const simulateDetection = async (req, res) => {
       );
     }
 
-    const availableCount = detections.filter((d) => d.status === "Available").length;
+    const availableCount = detections.filter(
+      (d) => d.status === "Available"
+    ).length;
+
+    if (slots.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "No active parking slots found for this parking area. Please create ParkingSlot records first.",
+      });
+    }
+
     parkingArea.availableSlots = availableCount;
     parkingArea.totalSlots = slots.length;
+
     await parkingArea.save();
 
     return res.status(200).json({
