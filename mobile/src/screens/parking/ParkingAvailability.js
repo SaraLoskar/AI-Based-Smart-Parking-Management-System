@@ -355,65 +355,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#222",
   },
-<<<<<<< HEAD
-
-  statusContainer: {
-    backgroundColor: "#fff",
-    borderRadius: 22,
-    padding: 20,
-
-    shadowColor: "#000",
-    shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 4,
-  },
-
-  levelRow: {
-    paddingBottom: 15,
-    marginBottom: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#EEEEEE",
-  },
-
-  levelHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 14,
-  },
-
-  levelName: {
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#222",
-  },
-
-  availableText: {
-    fontSize: 15,
-    color: "#118A54",
-    fontWeight: "700",
-  },
-
-  dotRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-
-  dot: {
-    width: 18,
-    height: 18,
-    borderRadius: 9,
-  },
-
-  legendContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 28,
-    marginBottom: 30,
-  },
-
-=======
   availableNumber: {
     fontSize: 26,
     fontWeight: "700",
@@ -468,42 +409,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     marginVertical: 18,
   },
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
   legendItem: {
     flexDirection: "row",
     alignItems: "center",
   },
-<<<<<<< HEAD
-
-  legendDot: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    marginRight: 8,
-  },
-
-  legendText: {
-    fontSize: 15,
-    color: "#444",
-    fontWeight: "600",
-  },
-
-  continueButton: {
-    marginBottom: 35,
-    height: 60,
-    backgroundColor: "#118A54",
-    borderRadius: 18,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  continueText: {
-    color: "#fff",
-    fontSize: 22,
-    fontWeight: "700",
-  },
-
-=======
   legendDot: {
     width: 12,
     height: 12,
@@ -529,5 +438,4 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "700",
   },
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 });
