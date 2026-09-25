@@ -9,7 +9,7 @@ import time
 import random
 import requests
 
-API_SIMULATE_URL = "http://localhost:8080/api/yolo/simulate-detection"
+API_SIMULATE_URL = "http://127.0.0.1:8080/api/yolo/simulate-detection"
 PARKING_AREA_ID = "parking001"
 
 ALL_SLOTS = ["A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8"]
@@ -53,7 +53,7 @@ def run_simulation(iterations=10, interval_seconds=3):
         }
 
         try:
-            res = requests.post(API_SIMULATE_URL, json=payload, timeout=5)
+            res = requests.post(API_SIMULATE_URL, json=payload, timeout=30)
             if res.status_code == 200:
                 data = res.json()
                 avail = data.get("availableSlots")
