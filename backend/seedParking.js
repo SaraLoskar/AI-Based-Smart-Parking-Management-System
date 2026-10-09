@@ -3,10 +3,7 @@ dotenv.config();
 
 import connectDB from "./src/config/db.js";
 import ParkingArea from "./src/models/parkingArea.model.js";
-<<<<<<< HEAD
-=======
 import ParkingSlot from "./src/models/parkingSlot.model.js";
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 
 const parkingAreas = [
     {
@@ -15,13 +12,8 @@ const parkingAreas = [
         address: "Bandra Kurla Complex, Mumbai",
         latitude: 19.0661,
         longitude: 72.8698,
-<<<<<<< HEAD
         totalSlots: 500,
         availableSlots: 243,
-=======
-        totalSlots: 8,
-        availableSlots: 6,
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
         pricePerHour: 100,
         openingTime: "06:00",
         closingTime: "23:59",
@@ -33,13 +25,8 @@ const parkingAreas = [
         address: "Kurla West, Mumbai",
         latitude: 19.0866,
         longitude: 72.8892,
-<<<<<<< HEAD
         totalSlots: 350,
         availableSlots: 160,
-=======
-        totalSlots: 8,
-        availableSlots: 7,
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
         pricePerHour: 80,
         openingTime: "08:00",
         closingTime: "23:30",
@@ -47,8 +34,6 @@ const parkingAreas = [
     }
 ];
 
-<<<<<<< HEAD
-=======
 const parkingSlots = [
     // BKC Multi-Level Parking (parking001)
     { id: "slot_001", parkingAreaId: "parking001", slotNumber: "A1", vehicleType: "Car", status: "Occupied", floor: 1, isActive: true },
@@ -71,25 +56,15 @@ const parkingSlots = [
     { id: "slot_016", parkingAreaId: "parking002", slotNumber: "B8", vehicleType: "Bike", status: "Available", floor: 1, isActive: true },
 ];
 
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 const seed = async () => {
     try {
         await connectDB();
 
         await ParkingArea.deleteMany();
-<<<<<<< HEAD
 
         await ParkingArea.insertMany(parkingAreas);
 
         console.log("Parking Areas Inserted Successfully ✅");
-=======
-        await ParkingArea.insertMany(parkingAreas);
-
-        await ParkingSlot.deleteMany();
-        await ParkingSlot.insertMany(parkingSlots);
-
-        console.log("Parking Areas & Slots Inserted Successfully ✅");
->>>>>>> 2afa04d5f12b44fd0ff6f4c5394b610f847f9ac0
 
         process.exit();
     } catch (err) {
