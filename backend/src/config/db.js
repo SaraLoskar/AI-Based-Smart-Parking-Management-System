@@ -1,13 +1,46 @@
+// import mongoose from "mongoose";
+
+// const connectDB = async () => {
+//     try {
+//         await mongoose.connect(process.env.MONGO_URI);
+//         console.log("MongoDB Connected");
+//     } catch (error) {
+//         console.log(error.message);
+//         process.exit(1);
+//     }
+// };
+
+// export default connectDB;
+
 import mongoose from "mongoose";
 
+let connectionPromise = null;
+
 const connectDB = async () => {
-    try {
-        await mongoose.connect(process.env.MONGO_URI);
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  if (!process.env.MONGO_URI) {
+    throw new Error("MONGO_URI is not configured");
+  }
+
+  if (!connectionPromise) {
+    connectionPromise = mongoose
+      .connect(process.env.MONGO_URI, {
+        serverSelectionTimeoutMS: 10000,
+      })
+      .then(() => {
         console.log("MongoDB Connected");
-    } catch (error) {
-        console.log(error.message);
-        process.exit(1);
-    }
+        return mongoose.connection;
+      })
+      .catch((error) => {
+        connectionPromise = null;
+        throw error;
+      });
+  }
+
+  return connectionPromise;
 };
 
 export default connectDB;

@@ -13,6 +13,7 @@ import reportRoutes from "./routes/report.routes.js"
 import paymentRoutes from "./routes/payment.routes.js"
 import navigationRoutes from "./routes/navigation.routes.js"
 import yoloRoutes from "./routes/yolo.routes.js"
+import connectDB from "./config/db.js";
 
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = path.dirname(__filename);
@@ -22,6 +23,19 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection failed:", error.message);
+
+    res.status(500).json({
+      success: false,
+      message: "Database connection failed",
+    });
+  }
+});
 
 // API Routes
 app.use('/api/user', userRoutes);
